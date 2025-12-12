@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="/moh.jpg">
+    <title>Dashboard Scanner</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="text/javascript" src="/tableToExcel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <%# Head Font Start %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        .poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+    </style>
+    <%# Head Font End %>
+
+</head>
+<body>
+    <div class="flex flex-row h-screen">
+    <%- include("./component/sidemenu.ejs", {active: 5}) %>
+    <div class="flex w-full flex-col justify-start items-start p-10 bg-[#FAFBFB] gap-5">
+        <div class="flex flex-row justify-start items-center gap-5">
+            <h1 class="poppins-extrabold text-4xl text-gray-700">Unchecked</h1>
+            <div class="flex justify-center items-center bg-blue-500 w-64 h-10 rounded-4xl poppins-bold text-center text-white text-xl hover:scale-105 duration-300 transition-all cursor-pointer" id="download">
+              Download All
+          </div>
+        </div>
+        <div class="flex w-[80vw] overflow-scroll border-1 border-gray-300 rounded-4xl">
+        <table id="hasil" style="width: 100%">
+            <tbody>
+                <tr data-fill-color="#b8d2ff" data-b-a-s="medium">
+                    <%for (let y=0; y < key.length; y++) { %>
+                        <td data-a-h="center" style="text-align: center; padding: 2px 10px;" data-b-a-s="hair" data-fill-color="b8d2ff" data-f-bold="true" class="border-1 bg-[#FFEB9C] poppins-bold"><%=key[y]%></td>
+                    <%}%>
+                </tr>
+                <% for (let i = 0; i < json.length; i++) { %>
+                  <% if(json[i]["Checked Status"] == "Unchecked"){ %>
+                <tr>
+                    <%for (let y=0; y < key.length; y++) { %>
+                        <td data-a-h="center" style="text-align: center; padding: 2px 10px;" <% if(json[i]["Checked Status"] == "Checked"){ %> class="bg-green-300 border-1" data-fill-color="7BF1A8" data-b-a-s="hair"<% } else { %>class="border-1" data-b-a-s="hair" <% } %>>
+                          <%= json[i][key[y]] %>
+                        </td>
+                    <%}%>
+                  </tr>
+                  <%}%>
+            <% } %>
+            </tbody>
+        </table>
+      </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  const dlbtn = document.querySelector("#download")
+  dlbtn.addEventListener("click", () => {
+    
+    TableToExcel.convert(document.getElementById("hasil"), {
+  name: "<%=title%>.xlsx",
+  sheet: {
+    name: "Sheet 1"
+  }
+});
+})
+</script>
+</body>
+</html>

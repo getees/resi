@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preload" as="image" href="/moh.jpg">
+    <title>Dashboard Scanner</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script type="text/javascript" src="/tableToExcel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <%# Head Font Start %>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        .poppins-thin {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.poppins-extralight {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.poppins-light {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.poppins-medium {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.poppins-semibold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.poppins-bold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.poppins-extrabold {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.poppins-black {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.poppins-thin-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.poppins-extralight-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.poppins-light-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.poppins-regular-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.poppins-medium-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.poppins-semibold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.poppins-bold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.poppins-extrabold-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.poppins-black-italic {
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
+    </style>
+    <%# Head Font End %>
+
+</head>
+<body>
+    <div class="flex flex-row h-screen">
+    <%- include("./component/sidemenu.ejs", {active: 0}) %>
+    <div class="flex w-full flex-row justify-start p-10 bg-[#FAFBFB]">
+        <div class="flex flex-col justify-start w-4/5">
+        <div class="flex justify-start items-center ">
+            <h1 class="poppins-extrabold text-4xl text-gray-700">Dashboard</h1>
+        </div>
+        <div class="flex flex-row justify-start items-center gap-15 w-full mt-10">
+            <div class="flex flex-row justify-between items-center gap-2 border-1 border-gray-200 rounded-4xl bg-white p-5 w-1/4">
+                <div class="flex flex-col">
+                <svg viewBox="1 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-15 fill-green-500"><g id="SVGRepo_bgCarrier" stroke-width="0" ></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.25007 2.38782C8.54878 2.0992 10.1243 2 12 2C13.8757 2 15.4512 2.0992 16.7499 2.38782C18.06 2.67897 19.1488 3.176 19.9864 4.01358C20.824 4.85116 21.321 5.94002 21.6122 7.25007C21.9008 8.54878 22 10.1243 22 12C22 13.8757 21.9008 15.4512 21.6122 16.7499C21.321 18.06 20.824 19.1488 19.9864 19.9864C19.1488 20.824 18.06 21.321 16.7499 21.6122C15.4512 21.9008 13.8757 22 12 22C10.1243 22 8.54878 21.9008 7.25007 21.6122C5.94002 21.321 4.85116 20.824 4.01358 19.9864C3.176 19.1488 2.67897 18.06 2.38782 16.7499C2.0992 15.4512 2 13.8757 2 12C2 10.1243 2.0992 8.54878 2.38782 7.25007C2.67897 5.94002 3.176 4.85116 4.01358 4.01358C4.85116 3.176 5.94002 2.67897 7.25007 2.38782ZM15.7071 9.29289C16.0976 9.68342 16.0976 10.3166 15.7071 10.7071L12.0243 14.3899C11.4586 14.9556 10.5414 14.9556 9.97568 14.3899L11 13.3656L9.97568 14.3899L8.29289 12.7071C7.90237 12.3166 7.90237 11.6834 8.29289 11.2929C8.68342 10.9024 9.31658 10.9024 9.70711 11.2929L11 12.5858L14.2929 9.29289C14.6834 8.90237 15.3166 8.90237 15.7071 9.29289Z" class="fill-inherit"></path> </g></svg>
+                <div class="flex flex-col justify-start items-start">
+                    <span class="poppins-regular text-lg text-gray-400">Total</span>
+                    <span class="poppins-semibold text-2xl">Checked</span>
+                </div>
+            </div>
+            <div class="flex justify-center items-center">
+                <h3 class="poppins-extrabold text-4xl text-green-500"><%= checked %></h3>
+            </div>
+            </div>
+            <div class="flex flex-row justify-between items-center gap-2 border-1 border-gray-200 rounded-4xl bg-white p-5 w-1/4">
+                <div class="flex flex-col">
+                    <svg viewBox="1 0 24 24" xmlns="http://www.w3.org/2000/svg" class="size-15 fill-red-500"><g id="SVGRepo_bgCarrier" stroke-width="0" ></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.25007 2.38782C8.54878 2.0992 10.1243 2 12 2C13.8757 2 15.4512 2.0992 16.7499 2.38782C18.06 2.67897 19.1488 3.176 19.9864 4.01358C20.824 4.85116 21.321 5.94002 21.6122 7.25007C21.9008 8.54878 22 10.1243 22 12C22 13.8757 21.9008 15.4512 21.6122 16.7499C21.321 18.06 20.824 19.1488 19.9864 19.9864C19.1488 20.824 18.06 21.321 16.7499 21.6122C15.4512 21.9008 13.8757 22 12 22C10.1243 22 8.54878 21.9008 7.25007 21.6122C5.94002 21.321 4.85116 20.824 4.01358 19.9864C3.176 19.1488 2.67897 18.06 2.38782 16.7499C2.0992 15.4512 2 13.8757 2 12C2 10.1243 2.0992 8.54878 2.38782 7.25007C2.67897 5.94002 3.176 4.85116 4.01358 4.01358C4.85116 3.176 5.94002 2.67897 7.25007 2.38782ZM8.70711 7.29289C8.31658 6.90237 7.68342 6.90237 7.29289 7.29289C6.90237 7.68342 6.90237 8.31658 7.29289 8.70711L10.5858 12L7.29289 15.2929C6.90237 15.6834 6.90237 16.3166 7.29289 16.7071C7.68342 17.0976 8.31658 17.0976 8.70711 16.7071L12 13.4142L15.2929 16.7071C15.6834 17.0976 16.3166 17.0976 16.7071 16.7071C17.0976 16.3166 17.0976 15.6834 16.7071 15.2929L13.4142 12L16.7071 8.70711C17.0976 8.31658 17.0976 7.68342 16.7071 7.29289C16.3166 6.90237 15.6834 6.90237 15.2929 7.29289L12 10.5858L8.70711 7.29289Z" class="fill-inherit"></path> </g></svg>                    <div class="flex flex-col justify-start items-start">
+                    <span class="poppins-regular text-lg text-gray-400">Total</span>
+                    <span class="poppins-semibold text-2xl">Unchecked</span>
+                </div>
+            </div>
+            <div class="flex justify-center items-center">
+                <h3 class="poppins-extrabold text-4xl text-red-500"><%= unchecked %></h3>
+            </div>
+            </div>
+            <div class="flex flex-row justify-between items-center gap-2 border-1 border-gray-200 rounded-4xl bg-white p-5 w-1/4">
+                <div class="flex flex-col">
+                    <svg viewBox="1 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="size-15"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17.5777 4.43152L15.5777 3.38197C13.8221 2.46066 12.9443 2 12 2C11.0557 2 10.1779 2.46066 8.42229 3.38197L6.42229 4.43152C4.64855 5.36234 3.6059 5.9095 2.95969 6.64132L12 11.1615L21.0403 6.64132C20.3941 5.9095 19.3515 5.36234 17.5777 4.43152Z" fill="#1C274C"></path> <path d="M21.7484 7.96435L12.75 12.4635V21.904C13.4679 21.7252 14.2848 21.2965 15.5777 20.618L17.5777 19.5685C19.7294 18.4393 20.8052 17.8748 21.4026 16.8603C22 15.8458 22 14.5833 22 12.0585V11.9415C22 10.0489 22 8.86558 21.7484 7.96435Z" fill="#1C274C"></path> <path d="M11.25 21.904V12.4635L2.25164 7.96434C2 8.86557 2 10.0489 2 11.9415V12.0585C2 14.5833 2 15.8458 2.5974 16.8603C3.19479 17.8748 4.27063 18.4393 6.42229 19.5685L8.42229 20.618C9.71524 21.2965 10.5321 21.7252 11.25 21.904Z" fill="#1C274C"></path> </g></svg>                <div class="flex flex-col justify-start items-start">
+                    <span class="poppins-regular text-lg text-gray-400">Total</span>
+                    <span class="poppins-semibold text-2xl">Order</span>
+                </div>
+            </div>
+            <div class="flex justify-center items-center">
+                <h3 class="poppins-extrabold text-4xl text-[#1C274C]"><%= total %></h3>
+            </div>
+            </div>
+            
+        </div>
+        <div class="flex flex-row w-full mt-10 ">
+            <div class="flex flex-col justify-center items-center w-2/5 p-10 bg-white rounded-4xl border-1 border-gray-200">
+                <label class="poppins-bold text-xl text-gray-700">Chart</label>
+                <canvas id="Chart"></canvas>
+            </div>
+            <div class="flex justify-center items-center w-full">
+                <% if (!check) { %>
+                    <div class="flex flex-row justify-between items-center gap-2 border-1 border-gray-200 rounded-4xl bg-white p-5 w-2/4">
+                        <div class="flex flex-col">
+                            <svg fill="#000000" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" class="size-15"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>upload-cloud</title> <path d="M0 16v-1.984q0-3.328 2.336-5.664t5.664-2.336q1.024 0 2.176 0.352 0.576-2.752 2.784-4.544t5.056-1.824q3.296 0 5.632 2.368t2.368 5.632q0 0.896-0.32 2.048 0.224-0.032 0.32-0.032 2.464 0 4.224 1.76t1.76 4.224v2.016q0 2.496-1.76 4.224t-4.224 1.76h-0.384q0.288-0.8 0.352-1.44 0.096-1.312-0.32-2.56t-1.408-2.208l-4-4q-1.76-1.792-4.256-1.792t-4.224 1.76l-4 4q-0.96 0.96-1.408 2.24t-0.32 2.592q0.032 0.576 0.256 1.248-2.72-0.608-4.512-2.784t-1.792-5.056zM10.016 22.208q-0.096-0.96 0.576-1.6l4-4q0.608-0.608 1.408-0.608 0.832 0 1.408 0.608l4 4q0.672 0.64 0.608 1.6-0.032 0.288-0.16 0.576-0.224 0.544-0.736 0.896t-1.12 0.32h-1.984v6.016q0 0.832-0.608 1.408t-1.408 0.576-1.408-0.576-0.576-1.408v-6.016h-2.016q-0.608 0-1.088-0.32t-0.768-0.896q-0.096-0.288-0.128-0.576z"></path> </g></svg>                    <span class="poppins-regular text-lg text-gray-400">File</span>
+                            <span class="poppins-semibold text-2xl">Upload</span>
+                        </div>
+                    <div class="flex justify-center items-center">
+                        <form action="/upload" method="post" id="uploadfile" class="flex flex-col justify-center items-center gap-3" ref='uploadForm' encType="multipart/form-data">
+                            <input type="file" name="thecsv" id="file" class="w-full bg-black text-white items-center justify-center text-center p-2 border-1 rounded-4xl cursor-pointer" accept=".csv" placeholder="Click Here To Upload File!">
+                            <input type="submit" value="Submit" class="px-4 py-2 rounded-full text-white bg-black hover:scale-105 duration-300 transition-all cursor-pointer">
+                        </form>
+                    </div>
+                    </div>
+                    <% } else { %>
+            <div class="flex justify-center items-center bg-red-500 w-64 h-32 rounded-4xl poppins-bold text-white text-3xl hover:scale-105 duration-300 transition-all cursor-pointer" id="ResetBtn">
+                Reset
+            </div>
+            <% } %>
+        </div>
+        </div>
+    </div>
+    <div class="flex flex-col w-1/5 gap-3 bg-white px-3 py-10 rounded-4xl border-1 border-gray-200">
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+            <div class="flex flex-col justify-center items-start p-2 gap-1">
+                <span class="text-lg poppins-bold text-gray-700">Metto Senna Leaf Mix Herba 20</span>
+                <div class="flex flex-row gap-3">
+                <% let fil = json.filter( element => element["Seller SKU"] == "SN/02") %>
+                <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+                <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+              </div>
+            </div>
+        </div>
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+        <div class="flex flex-col justify-center items-start p-2 gap-1">
+            <span class="text-lg poppins-bold text-gray-700">Metto Senna Leaf Mix Herba 10</span>
+            <div class="flex flex-row gap-3">
+            <% fil = json.filter( element => element["Seller SKU"] == "LMH/01") %>
+            <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+            <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+    </div>
+        </div>
+        </div>
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+        <div class="flex flex-col justify-center items-start p-2 gap-1">
+            <span class="text-lg poppins-bold text-gray-700">Metto Greentea</span>
+            <div class="flex flex-row gap-3">
+              <% fil = json.filter( element => element["Seller SKU"] == "SL/03") %>
+              <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+              <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+        <div class="flex flex-col justify-center items-start p-2 gap-1">
+            <span class="text-lg poppins-bold text-gray-700">Metto Paket Hemat</span>
+            <div class="flex flex-row gap-3">
+              <% fil = json.filter( element => element["Seller SKU"] == "SNL/06") %>
+              <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+              <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+            </div>
+        </div>
+        </div>
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+        <div class="flex flex-col justify-center items-start p-2 gap-1">
+            <span class="text-lg poppins-bold text-gray-700">Rebath Herbal Tea</span>
+            <div class="flex flex-row gap-3">
+              <% fil = json.filter( element => element["Seller SKU"] == "RH/04") %>
+              <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+              <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+            </div>
+        </div>
+        </div>
+        <div class="flex flex-row gap-2">
+            <div class="p-2 bg-gray-700 rounded-full"></div>
+        <div class="flex flex-col justify-center items-start p-2 gap-1">
+            <span class="text-lg poppins-bold text-gray-700">Rebath Obat Batuk Herbal</span>
+            <div class="flex flex-row gap-3">
+              <% fil = json.filter( element => element["Seller SKU"] == "RB/05") %>
+              <span class="poppins-regular text-lg text-green-500"><%= fil.filter( element => element["Checked Status"] == "Checked").length %></span>
+              <span class="poppins-regular text-lg text-red-500"><%= fil.filter( element => element["Checked Status"] == "Unchecked").length %></span>
+            </div>
+        </div>
+        </div>
+
+    </div>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('Chart');
+  
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ['Sudah Scan', 'Belum Scan'],
+        datasets: [{
+          label: 'Total ',
+          data: [parseInt("<%= checked %>"), parseInt("<%= unchecked %>")],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+  <script>
+    const resetBtn = document.getElementById('ResetBtn');
+    resetBtn.addEventListener('click', () => {
+        Swal.fire({
+  title: "Are you sure to reset?",
+  text: "You won't be able to revert this!",
+  icon:'warning',
+  showCancelButton: true,
+  confirmButtonText: "Reset",
+  confirmButtonColor: '#00C950',
+}).then((result) => {
+  if (result.isConfirmed) {
+    fetch("/reset").then(data=>{
+        data.json().then(status=>{
+            console.log(status)
+            if (status.code == 200) {
+                Swal.fire("Reseted!", "", "success");
+                location.reload()
+            } else {
+                alert("Error : "+JSON.stringify(status.reason))
+            }
+        })
+    })
+  }
+});
+    })
+  </script>
+</body>
+</html>

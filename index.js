@@ -5,7 +5,7 @@ const {Server, Socket} = require("socket.io")
 const path = require("path")
 const convertjson = require("csvtojson")
 const fileUpload = require("express-fileupload")
-
+import { httpServerHandler } from 'cloudflare:node';
 const log = require("./logger.js")
 
 const app = express()
@@ -186,6 +186,11 @@ app.get("/font", (req, res)=> {
     res.sendFile(path.join(__dirname, "/font/Motterdam.ttf"))
 })
 
-server.listen(port, () => {
+/*server.listen(port, () => {
     log(`App listening on port ${port}`, "blue")
-})
+
+})*/
+
+export default {
+  fetch: httpServerHandler(app),
+};

@@ -1,4 +1,4 @@
-module.exports = log = (text, bgColor, textColor = 'white') => {
+const log = (text, bgColor, textColor = 'white') => {
     // Kode untuk warna latar belakang
     const backgroundColors = {
         black: "\x1b[40m",
@@ -54,4 +54,7 @@ module.exports = log = (text, bgColor, textColor = 'white') => {
 
     // Gabungkan kode warna latar belakang dan teks, lalu reset semua format di akhir (\x1b[0m)
     console.log(`${selectedBgColor}${selectedTextColor}%s\x1b[0m`, `[${datePart} || ${timePart}] : ` + text);
+
 };
+
+module.exports = log;
